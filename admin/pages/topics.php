@@ -1,7 +1,7 @@
 <?php
 session_start();
     if(!($_SESSION['username']=="admin")) {
-        header("location:../.././");
+        header("location:.././");
     }
 ?>
 <!DOCTYPE html>
@@ -30,14 +30,12 @@ session_start();
     <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="css/style.css" />
-    <link type="text/css" rel="stylesheet" href="css/dropdown.css" />
-    <link href="css/home_1489197295.min.css" rel="stylesheet" type="text/css">
+    <link href="../dist/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../dist/css/style.css" type="text/css" rel="stylesheet" />
+    <!-- <link href="css/home_1489197295.min.css" rel="stylesheet" type="text/css"> -->
 
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -55,7 +53,7 @@ session_start();
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             
 <?php
-            include("header.php");
+            include_once("header.php");
             ?>
             <!-- /.navbar-header -->
 
@@ -125,7 +123,7 @@ session_start();
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-question-circle   fa-fw"></i> Câu hỏi<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-question-circle fa-fw"></i> Câu hỏi<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="question.php">Tất cả câu hỏi</a>
@@ -138,13 +136,36 @@ session_start();
                         </li>
                         
                         <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Dạng đề thi<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Dạng bài tập<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="type-question.php">Tất cả dạng đề thi</a>
+                                    <a href="exam.php">Tất cả dạng bài tập</a>
                                 </li>
                                 <li>
-                                    <a href="type-question-add.php">Thêm mới</a>
+                                    <a href="exam-add.php">Thêm mới</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-filter fa-fw"></i> Bộ lọc từ<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="filter-word.php">Danh sách các từ</a>
+                                </li>
+                                <li>
+                                    <a href="filter-word-add.php">Thêm vào bộ lọc</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-exclamation-circle fa-fw"></i> Báo cáo vi phạm<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="report.php">Danh sách báo cáo</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -189,7 +210,6 @@ session_start();
                                 <thead>
                                     <tr>
                                         <th>Tên chủ đề</th>
-                                        <th>Trạng thái</th>
                                         <th>Tùy chỉnh</th>
                                         <!-- <th>Engine version</th>
                                         <th>CSS grade</th> -->
@@ -197,20 +217,24 @@ session_start();
                                 </thead>
                                 <tbody>
                                     <?php
-                                        include("control/configure.php");
+                                        include("../control/configure.php");
                                         $sql = "SELECT * FROM topic";
                                         $result = mysqli_query($con, $sql);
                                         $num_rows = mysqli_num_rows($result);
                                         while($row=mysqli_fetch_array($result)){
                                         echo "<tr class='odd gradeX'>
-                                                <td><a href='../../topic.php?idtopic={$row['idtopic']}'>".$row['nametopic']."</a></td>
-                                                <td>".$row['state']."</td>
+                                                <td><a href='../topic.php?idtopic={$row['idtopic']}'>".$row['nametopic']."</a></td>
                                                 <td>
                                                     <div class='pull-right action-buttons'>
                                                         <a href='edit-topic.php?idtopic={$row['idtopic']}' name='btnChange' value='change'><span class='glyphicon glyphicon-pencil'></span></a>
-                                                        <a name='btnDel' value='del' class='trash'><span class='glyphicon glyphicon-trash' style='color:rgb(209, 91, 71)'></span></a>
-                                                        <a class='flag'><span class='glyphicon glyphicon-flag' style='color:rgb(248, 148, 6);'></span></a>
-                                                    </div>
+                                                        <a name='btnDel' value='del' class='trash'><span class='glyphicon glyphicon-trash' style='color:rgb(209, 91, 71)'></span></a>";
+                                                            if($row['state']==1){
+                                                                echo "<a href='update-state.php?idtopic={$row['idtopic']}' class='flag' title='Hiển thị'><span class='glyphicon glyphicon-flag' style='color:rgb(248, 148, 6);'></span></a>";
+                                                            }else{
+                                                                echo "<a href='update-state.php?idtopic={$row['idtopic']}' class='flag' title='Đang lưu trữ'><span class='glyphicon glyphicon-flag' style='color:rgba(50,50,50,.5);'></span></a>";
+                                                            }
+                                                            
+                                                    echo "</div>
                                                 </td>
                                             </tr>";
                                         }
@@ -238,7 +262,8 @@ session_start();
     <!-- /#wrapper -->
 
     <?php
-    include("fix/libjs.php");
+    include_once("libjs.php");
+    include_once("footer.php");
     ?>
 
 </body>

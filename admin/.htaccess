@@ -1,38 +1,21 @@
-#deny from all
-AuthName "Restricted Area" 
-AuthType Basic 
-AuthUserFile /.htpasswd 
-AuthGroupFile /dev/null 
-<Files delete-article.php>
-require valid-user
+# secure htaccess file
+<Files .htaccess>
+order allow,deny
+deny from all
 </Files>
-<Files delete-dictionary.php>
-require valid-user
-</Files>
-<Files login-action.php>
-require valid-user
-</Files>
-<Files login.php>
-require valid-user
-</Files>
-<Files logout.php>
-require valid-user
-</Files>
-<Files orderadmin.php>
-require valid-user
-</Files>
-<Files orderdatepost.php>
-require valid-user
-</Files>
-<Files orderview.php>
-require valid-user
-</Files>
-<Files register.php>
-require valid-user
-</Files>
-<Files register-action.php>
-require valid-user
-</Files>
-<Files simple_html_dom.php>
-require valid-user
-</Files>
+
+# enable basic rewriting
+#RewriteEngine on
+
+# serve alternate default index page (thay doi trang index mac dinh)
+#DirectoryIndex business.html
+
+# serve foo files as php files
+#AddType application/x-httpd-php .foo
+
+#RewriteRule ^(([^/]+/)*[^.]+)$ /$1.php [L]
+#RewriteRule ^home/ /home.php [L]
+
+#Options +FollowSymLinks
+#RewriteEngine On
+#RewriteRule ^(.*).abc$ $1.php [L]

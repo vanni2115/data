@@ -2,7 +2,7 @@
 session_start();
 
     if(!($_SESSION['username']=="admin")) {
-        header("location:../.././");
+        header("location:.././");
     }
 ?>
 <!DOCTYPE html>
@@ -31,15 +31,13 @@ session_start();
     <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="css/style.css" />
-    <link type="text/css" rel="stylesheet" href="css/dropdown.css" />
-    <link href="css/home_1489197295.min.css" rel="stylesheet" type="text/css">
-    <link href="css/style-pop.css" rel="stylesheet" type="text/css">
+    <link href="../dist/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../dist/css/style.css" type="text/css" rel="stylesheet" />
+    <link href="../dist/css/style-pop.css" type="text/css" rel="stylesheet" />
+    <!-- <link href="css/home_1489197295.min.css" rel="stylesheet" type="text/css"> -->
 
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -57,7 +55,7 @@ session_start();
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             
 <?php
-            include("header.php");
+            include_once("header.php");
             ?>
             <!-- /.navbar-header -->
 
@@ -127,7 +125,7 @@ session_start();
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-question-circle   fa-fw"></i> Câu hỏi<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-question-circle fa-fw"></i> Câu hỏi<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="question.php">Tất cả câu hỏi</a>
@@ -140,26 +138,36 @@ session_start();
                         </li>
                         
                         <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Dạng đề thi<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Dạng bài tập<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="type-question.php">Tất cả dạng đề thi</a>
+                                    <a href="exam.php">Tất cả dạng bài tập</a>
                                 </li>
                                 <li>
-                                    <a href="type-question-add.php">Thêm mới</a>
+                                    <a href="exam-add.php">Thêm mới</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
 
                         <li>
-                            <a href="#"><i class="fa fa-suitcase fa-fw"></i> Bộ lọc từ<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-filter fa-fw"></i> Bộ lọc từ<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="filter-word.php">Danh sách các từ</a>
                                 </li>
                                 <li>
                                     <a href="filter-word-add.php">Thêm vào bộ lọc</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-exclamation-circle fa-fw"></i> Báo cáo vi phạm<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="report.php">Danh sách báo cáo</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -207,9 +215,10 @@ session_start();
                                         <!-- anh cho article -->
                                         <div class="row">
                                           <div class="col-md-5 col-sm-8 col-xs-8 col-md-push-4 col-ms-push-2 col-xs-push-2">
+                                              <i style="text-align:center" class="center-block">Dung lượng ảnh nhỏ hơn 200Kb.</i>
                                               <div id="img-upload-form" class="thumbnail" onmouseover="mouseOver()" onmouseout="mouseOut()">
-                                                <img id="logo-img" onclick="document.getElementById('add-new-logo').click();" src="../../upload/english2.jpg" style="height: 200px; width: 400px;" />
-                                                <div id="hover-ava" style="z-index:1;position:relative;display:none;"><i class="fa fa-camera" aria-hidden="true"></i>&nbsp; Cập nhật ảnh đại diện<input type="file" id="add-new-logo" style="opacity:0;z-index:2;margin-top:-22px;position:relative;cursor:pointer;" class="center-block" name="avatar" accept="image/*" onchange="addNewLogo(this)"/></div>
+                                                <img id="logo-img" onclick="document.getElementById('add-new-logo').click();" src="../upload/english2.jpg" style="height: 200px; width: 400px;" />
+                                                <div id="hover-ava" style="z-index:1;position:relative;display:none;"><i class="fa fa-camera" aria-hidden="true"></i>&nbsp; Cập nhật ảnh đại diện<input type="file" id="add-new-logo" style="opacity:0;z-index:2;margin-top:-18px;position:relative;cursor:pointer;" class="center-block" name="avatar" accept="image/*" onchange="addNewLogo(this)"/></div>
                                               </div>
                                           </div>
                                         </div>
@@ -253,7 +262,7 @@ session_start();
                                                 <select class="form-control" name="topic" id="topic" size="1">
                                                     <option value="">--Chọn chủ đề cho bài viết-- </option>
                                                     <?php
-                                                        include("control/configure.php");
+                                                        include("../control/configure.php");
                                                         $sql = "SELECT * FROM topic";
                                                         $result = mysqli_query($con, $sql);
                                                         $num_rows = mysqli_num_rows($result);
@@ -287,7 +296,7 @@ session_start();
                                     </form>
                                     <!-- Xu ly them bai viet -->
                                     <?php
-                                        include( "control/configure.php");
+                                        include( "../control/configure.php");
                                         if (isset($_REQUEST['btnAdd'])&&isset($_REQUEST['title-article'])&&isset($_REQUEST['topic'])) {
 
                                             if (isset($_FILES['avatar']['name'])){
@@ -299,37 +308,47 @@ session_start();
                                                 // Nếu file upload không bị lỗi,
                                                 // Tức là thuộc tính error > 0
                                                 $varFileName=$_FILES['avatar']['name'];
+                                                $varRename=$varFileName.time();
                                                 $varSize=$_FILES['avatar']['size'];
                                                 $varTemp=$_FILES['avatar']['tmp_name'];
                                                 $varType=$_FILES['avatar']['type'];
                                                 $varExt=$FILES['avatar']['Extend'];
-                                                $varUploadDir="../.././upload/";
+                                                $varUploadDir=".././upload/";
                                                 $varUploadFile=$varUploadDir.$varFileName;
-                                                $sql="INSERT INTO article(iduser,idtopic,state,namearticle,image,content) VALUES ('{$iduser}','{$idtopic}','{$state}','{$title}','{$varFileName}','{$content}')";
-                                                if(mysqli_query($con,$sql)) {
-                                                // header("Location:admin-post-article.php");
-                                                    //header('Refresh: 1; url=edit-article.php');
-                                                    ?>
-                                                    <script type="text/javascript">
-                                                        document.getElementById("noti-action").innerHTML = "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Thêm bài viết mới thành công.</div>";
-                                                    </script>
-                                                    <?php
-                                                
-                                                }else {
-                                                    ?>
-                                                    <script type="text/javascript">
-                                                        document.getElementById("noti-action").innerHTML = "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Thêm bài viết mới không thành công.</div>";
-                                                    </script>
-                                                    <?php
-                                                }
-                                                if ($_FILES['avatar']['error'] > 0)
-                                                {
-                                                    echo 'File Upload Bị Lỗi';
+                                                if ($varSize < 200000) {
+                                                    $sql="INSERT INTO article(iduser,idtopic,state,namearticle,image,content) VALUES ('{$iduser}','{$idtopic}','{$state}','{$title}','{$varRename}','{$content}')";
+                                                    if(mysqli_query($con,$sql)) {
+                                                    // header("Location:admin-post-article.php");
+                                                        //header('Refresh: 1; url=edit-article.php');
+                                                        ?>
+                                                        <script type="text/javascript">
+                                                            document.getElementById("noti-action").innerHTML = "<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Thêm bài viết mới thành công.</div>";
+                                                        </script>
+                                                        <?php
+                                                    
+                                                    }else {
+                                                        ?>
+                                                        <script type="text/javascript">
+                                                            document.getElementById("noti-action").innerHTML = "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Thêm bài viết mới không thành công.</div>";
+                                                        </script>
+                                                        <?php
+                                                    }
+                                                    if ($_FILES['avatar']['error'] > 0)
+                                                    {
+                                                        echo 'File Upload Bị Lỗi';
+                                                    }else{
+                                                        // Upload file
+                                                        move_uploaded_file($_FILES['avatar']['tmp_name'], '.././upload/'.$_FILES['avatar']['name']);
+                                                        // echo 'File Uploaded';
+                                                    }
                                                 }else{
-                                                    // Upload file
-                                                    move_uploaded_file($_FILES['avatar']['tmp_name'], '../.././upload/'.$_FILES['avatar']['name']);
-                                                    // echo 'File Uploaded';
+                                                    ?>
+                                                    <script type="text/javascript">
+                                                        document.getElementById("noti-action").innerHTML = "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Không thành công! Dung lượng ảnh lớn hơn mức quy định.</div>";
+                                                    </script>
+                                                    <?php
                                                 }
+                                                
                                             }else{
                                                 $title=$_REQUEST['title-article'];
                                                 $iduser=$_SESSION['iduser'];
@@ -376,7 +395,8 @@ session_start();
     <!-- /#wrapper -->
 
     <?php
-    include("fix/libjs.php");
+    include_once("libjs.php");
+    include_once("footer.php");
     ?>
 </body>
 

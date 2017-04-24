@@ -1,7 +1,7 @@
 <?php
 session_start();
     if(!($_SESSION['username']=="admin")) {
-        header("location:../.././");
+        header("location:.././");
     }
 ?>
 <!DOCTYPE html>
@@ -15,7 +15,7 @@ session_start();
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Thêm chủ đề</title>
+    <title>Thêm từ vào bộ lọc</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -31,10 +31,10 @@ session_start();
 
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="css/style.css" />
-    <link type="text/css" rel="stylesheet" href="css/dropdown.css" />
-    <link href="css/home_1489197295.min.css" rel="stylesheet" type="text/css">
-    <link href="css/style-pop.css" rel="stylesheet" type="text/css">
+    <link type="text/css" rel="stylesheet" href="../../css/style.css" />
+    <link href="../dist/css/style-pop.css" type="text/css" rel="stylesheet" />
+    <!-- <link type="text/css" rel="stylesheet" href="css/dropdown.css" /> -->
+    <!-- <link href="css/home_1489197295.min.css" rel="stylesheet" type="text/css"> -->
 
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -56,7 +56,7 @@ session_start();
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             
 <?php
-            include("header.php");
+            include_once("header.php");
             ?>
             <!-- /.navbar-header -->
 
@@ -126,7 +126,7 @@ session_start();
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-question-circle   fa-fw"></i> Câu hỏi<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-question-circle fa-fw"></i> Câu hỏi<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="question.php">Tất cả câu hỏi</a>
@@ -139,26 +139,36 @@ session_start();
                         </li>
                         
                         <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Dạng đề thi<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Dạng bài tập<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="type-question.php">Tất cả dạng đề thi</a>
+                                    <a href="exam.php">Tất cả dạng bài tập</a>
                                 </li>
                                 <li>
-                                    <a href="type-question-add.php">Thêm mới</a>
+                                    <a href="exam-add.php">Thêm mới</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
 
                         <li>
-                            <a href="#"><i class="fa fa-suitcase fa-fw"></i> Bộ lọc từ<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-filter fa-fw"></i> Bộ lọc từ<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="filter-word.php">Danh sách các từ</a>
                                 </li>
                                 <li>
                                     <a href="filter-word-add.php">Thêm vào bộ lọc</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-exclamation-circle fa-fw"></i> Báo cáo vi phạm<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="report.php">Danh sách báo cáo</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -211,10 +221,10 @@ session_start();
                                         <button type="submit" class="btn btn-pop center-block" value="add-topic" name="btnAdd" id="btnAdd"><b>Thêm từ</b></button>
                                     </form>
                                     <?php
-                                        include( "control/configure.php");
+                                        include( "../control/configure.php");
                                         if (isset($_REQUEST['btnAdd'])&&isset($_REQUEST['word'])) {
                                             $word=$_REQUEST['word'];
-                                            $sql="INSERT INTO topic(word) VALUES ('{$word}')";
+                                            $sql="INSERT INTO filterword(word) VALUES ('{$word}')";
                                             if(mysqli_query($con,$sql)) {
                                                 ?>
                                                 <script type="text/javascript">
@@ -253,7 +263,8 @@ session_start();
     <!-- /#wrapper -->
 
     <?php
-    include("fix/libjs.php");
+    include_once("libjs.php");
+    include_once("footer.php");
     ?>
 
 </body>
